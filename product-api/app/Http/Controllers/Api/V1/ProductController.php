@@ -7,7 +7,7 @@ use App\Http\Requests\V1\ProductRequest;
 use App\Http\Resources\V1\ProductCollection;
 use App\Http\Resources\V1\ProductResource;
 use App\Models\Product;
-use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Response;
 
 class ProductController extends Controller
 {
@@ -17,43 +17,29 @@ class ProductController extends Controller
         return new ProductCollection($products);
     }
 
-    public function show($id): ProductResource|JsonResponse
+    public function show(Product $product): ProductResource
     {
-        $product = Product::find($id);
-
-        if (!$product) {
-            return response()->json(['message' => 'Product not found'], 404);
-        }
-
-        return new ProductResource($product);
+        return ProductResource::make($product);
     }
 
     public function store(ProductRequest $request): ProductResource
     {
         $product = Product::create($request->validated());
 
-        return new ProductResource($product);
+        return ProductResource::make($product);
     }
 
-    public function update(ProductRequest $request, $id): ProductResource|JsonResponse
+    public function update(ProductRequest $request, Product $product): ProductResource
     {
-        $product = Product::find($id);
-
-        if (!$product) {
-            return response()->json(['message' => 'Product not found'], 404);
-        }
-
         $product->update($request->validated());
 
-        return new ProductResource($product);
+        return ProductResource::make($product);
     }
 
-    public function destroy($id): JsonResponse
+    public function destroy(Product $product): Response
     {
-        $product = Product::findOrFail($id);
         $product->delete();
 
-        return response()->json(null, 204);
+        return response()->noContent();
     }
-
 }
