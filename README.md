@@ -24,7 +24,7 @@ Make sure you have the following installed on your system:
 
 2. Install Laravel dependencies:
 
-`cd product-api-laravel`
+`cd product-api`
 
 `composer install`
 
