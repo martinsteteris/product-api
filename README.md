@@ -28,7 +28,7 @@ Make sure you have the following installed on your system:
 
 `composer install`
 
-3. Configure your database connection in .env file
+3. Configure your database connection and x-api-key in .env file
 
 
 ## Usage
