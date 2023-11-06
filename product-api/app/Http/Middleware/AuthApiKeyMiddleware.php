@@ -12,7 +12,7 @@ class AuthApiKeyMiddleware
     {
         $apiKey = $request->header('x-api-key');
 
-        if ($apiKey !== 'my-test-api-key') {
+        if ($apiKey !== config('auth.api.product-api-key')) {
             return response()->json(['message' => 'Unauthorized'], 401);
         }
 
